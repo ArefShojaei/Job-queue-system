@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Console\Commands;
+
+use PhpX\Components\Console\Command;
+use Core\Events\{Event, EventEmitter};
+use Core\Queue\Worker;
+
+final class QueueWorkCommand extends Command
+{
+    private EventEmitter $emitter;
+
+    public function __construct()
+    {
+        $this->emitter = new EventEmitter();
+    }
+
+    public function exec(array $params): string
+    {
+        $this->registerJobListeners();
+
+        $worker = new Worker($this->emitter);
+
+        $worker->run();
+
+        return "";
+    }
+
+    private function registerJobListeners(): void
+    {
+        $this->emitter->on(Event::JOB_STARTED, function ($job) {});
+
+        $this->emitter->on(Event::JOB_COMPLETED, function ($job) {});
+
+        $this->emitter->on(Event::JOB_FAILED, function ($error) {});
+    }
+}
