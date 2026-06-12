@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "format": "prettier --write \"**/*.php\"",
+    "format:check": "prettier --check \"**/*.php\"",
+    "format:staged": "prettier --write --staged \"**/*.php\""
+  },
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.24.0",
+    "prettier": "^3.6.2"
+  }
+}

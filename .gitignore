@@ -1,0 +1,8 @@
+vendor
+composer.lock
+.vscode
+.DS_store
+node_modules
+package-lock.json
+.env
+.phpunit.cache
