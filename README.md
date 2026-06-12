@@ -1,3 +1,5 @@
+<img width="1280" height="853" alt="image" src="https://github.com/user-attachments/assets/952b835a-0c61-44cb-acca-f4ce54cd46f5" />
+
 # PHP Job Queue
 
 A lightweight job queue system built with pure PHP and MySQL.
