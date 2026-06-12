@@ -3,6 +3,13 @@
     "description": "A Queue & Job System",
     "type": "project",
     "license": "MIT",
+    "keywords": [
+        "queue",
+        "job",
+        "worker",
+        "event-emitter",
+        "console"
+    ],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "autoload": {
