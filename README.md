@@ -67,6 +67,15 @@ npm install
 
 Rename the `.env.example` file to `.env` and update the environment variables with your actual project configuration.
 
+```txt
+DB_DRIVER=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=
+DB_PASSWORD=
+DB_REPOSITORY=
+```
+
 ---
 
 ### 4. Database Setup
