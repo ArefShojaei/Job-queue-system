@@ -2,6 +2,7 @@
     "name": "arefshojaei/job-queue-system",
     "description": "A Queue & Job System",
     "type": "project",
+    "version": "1.0.0",
     "license": "MIT",
     "keywords": [
         "queue",
