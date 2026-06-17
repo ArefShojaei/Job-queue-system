@@ -3,12 +3,17 @@
 use Illuminate\Database\Capsule\Manager as Capsule;
 use PhpX\Components\Console\App as Console;
 
-use App\Console\Commands\{
-    JobCleanCommand,
+use App\Console\Commands\Job\{
     JobListCommand,
     JobTestCommand,
-    QueueWorkCommand,
+    FailedJobListCommand,
 };
+use App\Console\Commands\Database\{
+    DatabaseInitializeTableCommand,
+    DatabaseCleanTableCommand,
+    DatabaseDropTableCommand,
+};
+use App\Console\Commands\Queue\QueueWorkCommand;
 
 final class Application
 {
@@ -57,13 +62,22 @@ final class Application
     {
         $console = new Console();
 
-        $console->group("job:", function ($console) {
-            $console->command("clean", new JobCleanCommand());
-            $console->command("test", new JobTestCommand());
-            $console->command("list", new JobListCommand());
+        $console->group("db:", function (Console $console) {
+            $console->command(
+                "init jobs",
+                new DatabaseInitializeTableCommand(),
+            );
+            $console->command("clean jobs", new DatabaseCleanTableCommand());
+            $console->command("drop jobs", new DatabaseDropTableCommand());
         });
 
-        $console->command("queue:work", new QueueWorkCommand());
+        $console->group("job:", function (Console $console) {
+            $console->command("test sample", new JobTestCommand());
+            $console->command("list", new JobListCommand());
+            $console->command("list --failed", new FailedJobListCommand());
+        });
+
+        $console->command("queue:work --table={name}", new QueueWorkCommand());
 
         $this->console = $console;
     }
