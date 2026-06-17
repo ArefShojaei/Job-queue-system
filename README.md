@@ -80,22 +80,15 @@ DB_REPOSITORY=
 
 ### 4. Database Setup
 
-Create a new MySQL database and execute the following SQL query to create the required `jobs` table:
+```bash
+# Create 'jobs' & 'failed_jobs' tables
+php cli db:init jobs
 
-```sql
-CREATE TABLE jobs (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    payload LONGTEXT NOT NULL,
-    status ENUM(
-        'pending',
-        'processing',
-        'completed',
-        'failed'
-    ) DEFAULT 'pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        ON UPDATE CURRENT_TIMESTAMP
-);
+# Clean (Truncate) 'jobs' & 'failed_jobs' tables
+php cli db:clean jobs
+
+# Drop 'jobs' & 'failed_jobs' tables
+php cli db:drop jobs
 ```
 
 ---
@@ -105,7 +98,8 @@ CREATE TABLE jobs (
 The worker continuously watches the jobs table and processes available jobs.
 
 ```bash
-php cli queue:work
+# {name} => 'jobs' OR 'failed_jobs'
+php cli queue:work --table={name}
 ```
 
 ---
@@ -121,13 +115,19 @@ php cli job:list
 ### Dispatch a test job
 
 ```bash
-php cli job:test
+php cli job:test sample
 ```
 
 ### Remove all jobs
 
 ```bash
-php cli job:clean
+php cli db:clean jobs
+```
+
+### Remove tables
+
+```bash
+php cli db:drop jobs
 ```
 
 ---
