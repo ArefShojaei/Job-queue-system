@@ -2,8 +2,8 @@
 
 namespace Core\Events;
 
-use InvalidArgumentException;
 use Core\Events\Event;
+use Core\Exceptions\EventNotRegisteredException;
 
 final class EventEmitter implements Listener
 {
@@ -17,7 +17,7 @@ final class EventEmitter implements Listener
     public function emit(Event|string $event, mixed $data = null): void
     {
         if (!isset($this->listeners[$event])) {
-            throw new InvalidArgumentException("Event is not registered!");
+            throw new EventNotRegisteredException("Event is not registered!");
         }
 
         $listener = $this->listeners[$event];
