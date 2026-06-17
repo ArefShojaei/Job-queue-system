@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Queue;
 
 use PhpX\Components\Console\Command;
+
 use Core\Events\{Event, EventEmitter};
 use Core\Queue\Worker;
 
@@ -19,7 +20,9 @@ final class QueueWorkCommand extends Command
     {
         $this->registerJobListeners();
 
-        $worker = new Worker($this->emitter);
+        $table = $params["name"];
+
+        $worker = new Worker($this->emitter, $table);
 
         $worker->run();
 
